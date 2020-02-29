@@ -11,7 +11,8 @@ public class Driver {
 
 	public static void main(String[] args) throws IOException{
 		// TODO Auto-generated method stub
-			InputCSV.ReadAbsenceCSV("absences.csv");
+			AbsenceList list = InputCSV.ReadAbsenceCSV("absences.csv");
+			System.out.println(list);
 //			Assignment a = new Assignment("A","b","c","d","e");
 //			Assignment b = new Assignment("fd","sdf","csd","sd","ef");
 //			ArrayList<Assignment> list = new ArrayList<Assignment>();

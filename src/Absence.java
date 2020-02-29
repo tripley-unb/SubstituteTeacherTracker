@@ -5,10 +5,11 @@ public class Absence {
 	private String location;
 	private Teacher teacher;
 	
-	public Absence(String day, String time, String location) {
+	public Absence(String day, String time, String location, Teacher teacher) {
 		this.day = day;
 		this.time = time;
 		this.location = location;
+		this.teacher = teacher;
 	}
 	
 	public String getDay() {

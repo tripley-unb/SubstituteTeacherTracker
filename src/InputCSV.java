@@ -6,26 +6,29 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 public class InputCSV {
 	
 	private static final String csvPath = "subData/";
 	
 	public static AbsenceList ReadAbsenceCSV(String csvName) throws IOException {
-		AbsenceList teacherlist = new AbsenceList();
+		AbsenceList absenceList = new AbsenceList();
 		
 		try {
 	            Reader reader = Files.newBufferedReader(Paths.get(csvPath + csvName));
-	            CSVFormat format = CSVFormat.DEFAULT.withDelimiter(';').withFirstRecordAsHeader();
-	            CSVParser csvParser = new CSVParser(reader, format);
+	            CSVParser csvParser = new CSVParser(reader, CSVFormat.EXCEL.withFirstRecordAsHeader());
 	    
 				for (CSVRecord csvRecord : csvParser) {
 					String date = csvRecord.get("date");
 					String period = csvRecord.get("period");
-					String teacher = csvRecord.get("teacher");
+					String teacherName = csvRecord.get("teacher");
 					String location = csvRecord.get("location");
 					String teachables = csvRecord.get("teachables");
-					System.out.println(teachables);
+					
+					Teacher teacher = new Teacher(teacherName, InputCSV.parseTeachables(teachables));
+					Absence absence = new Absence(date, period, location, teacher);
+					absenceList.addAbsence(absence);
 				}
 				
 		} catch (IOException io) {
@@ -33,7 +36,7 @@ public class InputCSV {
 			io.printStackTrace();
 		}
 		
-		return teacherlist;
+		return absenceList;
 	}
 	
 	public static SubList ReadSubCSV(String csvName) throws IOException {
@@ -41,11 +44,12 @@ public class InputCSV {
 		
 		try (
 	            Reader reader = Files.newBufferedReader(Paths.get(csvPath + csvName));
-	            CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT);
+	            CSVParser csvParser = new CSVParser(reader, CSVFormat.EXCEL.withFirstRecordAsHeader());
 	    ) {
 			for (CSVRecord csvRecord : csvParser) {
-
-				
+				String date = csvRecord.get("name");
+				String teachables = csvRecord.get("teachables");
+				String teacherName = csvRecord.get("blacklist");
 				
 				
 			}
@@ -54,6 +58,16 @@ public class InputCSV {
 		return sublist;
 	}
 	
-	
+	private static ArrayList<String> parseTeachables(String teachables) {
+		ArrayList<String> teachablesArray = new ArrayList<String>();
+		
+		String[] string = teachables.split("\n");
+		
+		for(int i = 0; i < string.length; i++) {
+			teachablesArray.add(string[i]);
+		}
+		
+		return teachablesArray;
+	}
 	
 }

@@ -7,7 +7,7 @@ public class AbsenceList {
 		absences = new ArrayList<Absence>();
 	}
 	
-	public void addTeacher(Absence a) {
+	public void addAbsence(Absence a) {
 		absences.add(a);
 	}
 }
