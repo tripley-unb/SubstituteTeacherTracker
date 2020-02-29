@@ -26,7 +26,7 @@ public class InputCSV {
 					String location = csvRecord.get("location");
 					String teachables = csvRecord.get("teachables");
 					
-					Teacher teacher = new Teacher(teacherName, InputCSV.parseTeachables(teachables));
+					Teacher teacher = new Teacher(teacherName, InputCSV.parseSpaces(teachables));
 					Absence absence = new Absence(date, period, location, teacher);
 					absenceList.addAbsence(absence);
 				}
@@ -47,24 +47,25 @@ public class InputCSV {
 	            CSVParser csvParser = new CSVParser(reader, CSVFormat.EXCEL.withFirstRecordAsHeader());
 	    ) {
 			for (CSVRecord csvRecord : csvParser) {
-				String date = csvRecord.get("name");
+				String name = csvRecord.get("name");
 				String teachables = csvRecord.get("teachables");
-				String teacherName = csvRecord.get("blacklist");
+				String blacklist = csvRecord.get("blacklist");
 				
-				
+				Substitute substitute = new Substitute(name, parseSpaces(teachables), parseSpaces(blacklist));
+				sublist.addSub(substitute);
 			}
 		}
 		
 		return sublist;
 	}
 	
-	private static ArrayList<String> parseTeachables(String teachables) {
+	private static ArrayList<String> parseSpaces(String string) {
 		ArrayList<String> teachablesArray = new ArrayList<String>();
 		
-		String[] string = teachables.split("\n");
+		String[] stringArray = string.split("\n");
 		
-		for(int i = 0; i < string.length; i++) {
-			teachablesArray.add(string[i]);
+		for(int i = 0; i < stringArray.length; i++) {
+			teachablesArray.add(stringArray[i]);
 		}
 		
 		return teachablesArray;
