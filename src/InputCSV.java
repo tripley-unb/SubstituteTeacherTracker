@@ -4,11 +4,11 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class InputCSV {
-	private String csvName;
-	private final String csvPath = "../subData/" + csvName;
+	
+	private final String csvPath;
 	
 	public InputCSV(String csvName) {
-		this.csvName = csvName;
+		csvPath = "../subData/" + csvName;
 	}
 	
 	
