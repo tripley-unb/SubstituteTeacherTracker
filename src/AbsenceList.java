@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 
-public class TeacherList {
+public class AbsenceList {
 	private ArrayList<Absence> absences;
 	
-	public TeacherList() {
+	public AbsenceList() {
 		absences = new ArrayList<Absence>();
 	}
 	
