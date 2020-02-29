@@ -3,6 +3,7 @@ public class Absence {
 	private String day;
 	private String time;
 	private String location;
+	private Teacher teacher;
 	
 	public Absence(String day, String time, String location) {
 		this.day = day;
@@ -20,5 +21,9 @@ public class Absence {
 	
 	public String getLocation() {
 		return location;
+	}
+	
+	public Teacher getTeacher() {
+		return teacher;
 	}
 }

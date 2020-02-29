@@ -1,13 +1,13 @@
 import java.util.ArrayList;
 
 public class TeacherList {
-	private ArrayList<Teacher> teachers;
+	private ArrayList<Absence> absences;
 	
 	public TeacherList() {
-		teachers = new ArrayList<Teacher>();
+		absences = new ArrayList<Absence>();
 	}
 	
-	public void addTeacher(Teacher teacher) {
-		teachers.add(teacher);
+	public void addTeacher(Absence a) {
+		absences.add(a);
 	}
 }
