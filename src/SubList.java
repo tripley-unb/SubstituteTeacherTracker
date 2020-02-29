@@ -8,6 +8,6 @@ public class SubList {
     }
 
     public void addSub(Substitute sub) {
-        subs.add(sub);
+        subs.add(sub);//change to add only subs not in list
     }
 }

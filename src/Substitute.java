@@ -2,22 +2,22 @@ import java.util.ArrayList;
 
 public class Substitute {
 	private String name;
-	private ArrayList<String> bookings;
+	private ArrayList<Absence> bookings;
 	
 	public Substitute(String name) {
 		this.name = name;
-		bookings = new ArrayList<String>();
+		bookings = new ArrayList<Absence>();
 	}
 	
 	public String getName() {
 		return name;
 	}
 	
-	public ArrayList<String> getBooking(){
+	public ArrayList<Absence> getBooking(){
 		return bookings;
 	}
 	
-	public void addBooking(String booking) {
+	public void addBooking(Absence booking) {
 		bookings.add(booking);
 	}
 	
