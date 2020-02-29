@@ -11,18 +11,21 @@ public class InputCSV {
 	
 	private static final String csvPath = "subData/";
 	
-	public static TeacherList ReadTeacherCSV(String csvName) throws IOException {
-		TeacherList teacherlist = new TeacherList();
+	public static AbsenceList ReadAbsenceCSV(String csvName) throws IOException {
+		AbsenceList teacherlist = new AbsenceList();
 		
 		try {
 	            Reader reader = Files.newBufferedReader(Paths.get(csvPath + csvName));
-	            CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT);
+	            CSVFormat format = CSVFormat.DEFAULT.withDelimiter(';').withFirstRecordAsHeader();
+	            CSVParser csvParser = new CSVParser(reader, format);
 	    
 				for (CSVRecord csvRecord : csvParser) {
-					String name = csvRecord.get(0);
-					String location = csvRecord.get(1);
-					String teachables = csvRecord.get(2);
-				
+					String date = csvRecord.get("date");
+					String period = csvRecord.get("period");
+					String teacher = csvRecord.get("teacher");
+					String location = csvRecord.get("location");
+					String teachables = csvRecord.get("teachables");
+					System.out.println(teachables);
 				}
 				
 		} catch (IOException io) {
