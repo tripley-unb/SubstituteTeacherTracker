@@ -5,6 +5,10 @@ public class Absence {
 	private String location;
 	private Teacher teacher;
 	
+	public Absence() {
+		this("none","none","none", new Teacher());
+	}
+	
 	public Absence(String day, String time, String location, Teacher teacher) {
 		this.day = day;
 		this.time = time;

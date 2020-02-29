@@ -8,6 +8,6 @@ public class AbsenceList {
 	}
 	
 	public void addAbsence(Absence a) {
-		absences.add(a);
+		absences.add(a);//need to add only absences that aren't already there
 	}
 }

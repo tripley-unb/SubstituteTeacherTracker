@@ -4,6 +4,10 @@ public class Teacher {
 	private String name;
 	private ArrayList<String> teachables;
 	
+	public Teacher() {
+		this("none", new ArrayList<String>());
+	}
+	
 	public Teacher(String name, ArrayList<String> teachables) {
 		this.name = name;
 		this.teachables = teachables;

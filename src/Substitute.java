@@ -4,13 +4,13 @@ public class Substitute {
 	private String name;
 	private ArrayList<String> teachables;
 	private ArrayList<String> blacklist;
-	private ArrayList<String> bookings;
+	private ArrayList<Absence> bookings;
 	
 	public Substitute(String name, ArrayList<String> teachables, ArrayList<String> blacklist) {
 		this.name = name;
 		this.teachables = teachables;
 		this.blacklist = blacklist;
-		bookings = new ArrayList<String>();
+		bookings = new ArrayList<Absence>();
 	}
 	
 	public String getName() {
@@ -25,11 +25,11 @@ public class Substitute {
 		return blacklist;
 	}
 	
-	public ArrayList<String> getBooking(){
+	public ArrayList<Absence> getBooking(){
 		return bookings;
 	}
 	
-	public void addBooking(String booking) {
+	public void addBooking(Absence booking) {
 		bookings.add(booking);
 	}
 	
