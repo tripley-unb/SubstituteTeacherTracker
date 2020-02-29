@@ -11,16 +11,13 @@ public class Driver {
 
 	public static void main(String[] args) throws IOException{
 		// TODO Auto-generated method stub
-<<<<<<< HEAD
 			InputCSV.ReadTeacherCSV("teachers.csv");
-=======
 			Assignment a = new Assignment("A","b","c","d","e");
 			Assignment b = new Assignment("fd","sdf","csd","sd","ef");
 			ArrayList<Assignment> list = new ArrayList<Assignment>();
 			list.add(a);
 			list.add(b);
 			OutputCSV.createCSV(list);
->>>>>>> 4fb9aab542b1fe4a68786657edf06827ca0ba7af
 	}
 
 }
