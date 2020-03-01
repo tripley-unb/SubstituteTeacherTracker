@@ -6,6 +6,9 @@ public class Substitute {
 	private ArrayList<String> blacklist;
 	private ArrayList<Absence> bookings;
 	
+	public Substitute() {
+		this("none", new ArrayList<String>(), new ArrayList<String>());
+	}
 	public Substitute(String name, ArrayList<String> teachables, ArrayList<String> blacklist) {
 		this.name = name;
 		this.teachables = teachables;
