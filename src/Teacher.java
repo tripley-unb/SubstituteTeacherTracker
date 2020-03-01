@@ -12,12 +12,7 @@ public class Teacher {
 		this.name = name;
 		this.teachables = teachables;
 	}
-	
-	public Teacher(ArrayList<String> teachables, String name) {
-		this.name = name;
-		this.teachables = teachables;
-	}
-	
+
 	public String getName() {
 		return name;
 	}

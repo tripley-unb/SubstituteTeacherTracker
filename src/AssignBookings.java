@@ -4,14 +4,19 @@ import java.util.Random;
 public class AssignBookings {
 	private ArrayList<Assignment> assignments;
  	private ArrayList<Absence> absences;
-	private ArrayList<Assignment> assignmentsOriginal;
- 	private ArrayList<Absence> absencesOriginal;
 	private ArrayList<Substitute> substitutes;
+	private ArrayList<Integer> subindex;
+
+	
 	private Random random;
 
 	public AssignBookings(ArrayList<Absence> a, ArrayList<Substitute> s) {
 		absences = a;
 		substitutes = s;
+		subindex = new ArrayList<Integer>();//initialize list that correlates to sub list index
+		for (int i=0; i<substitutes.size();i++) {
+			subindex.add(i);
+		}
 		assignments = new ArrayList<Assignment>();
 		random = new Random();
 	}
@@ -20,6 +25,7 @@ public class AssignBookings {
 		
 		int randindexS;
 		int randindexA;
+		int counter = 0;
 		
 		Substitute substitute = new Substitute();
 		Absence absence = new Absence();
@@ -31,15 +37,21 @@ public class AssignBookings {
 			//choose one of the absences at random
 			randindexA = random.nextInt(absences.size());
 			absence = absences.get(randindexA);
+			for (int i=0; i<substitutes.size();i++) {//re-initialize subindex list
+				subindex.add(i);
+			}
+			System.out.println("abs up: "+absence);
+			System.out.println(subindex.size());
 			
-			cyclesubs: while (substitutes.size()!=0) {//cycle through substitutes at random
+			cyclesubs: while (subindex.size()!=0) {//cycle through substitutes at random
+				
 				conflict = false;//reset conflict flag
 				
 				//choose on of the substitutes at random
-				randindexS = random.nextInt(substitutes.size());
-				substitute = substitutes.get(randindexS);				
+				randindexS = random.nextInt(subindex.size());//choose random index for index list
+				substitute = substitutes.get(subindex.get(randindexS));				
 				
-				if (substitutes.get(randindexS).getBooking().size()!=0) {//if the sub has bookings
+				if (substitute.getBooking().size()!=0) {//if the sub has bookings
 
 					for (int j=0; j<substitute.getBooking().size(); j++){//cycle through sub's bookings
 						
@@ -54,14 +66,18 @@ public class AssignBookings {
 				if (conflict == false) {//if there aren't any conflicts
 					substitute.addBooking(absence);//add booking to subs list
 					
+					System.out.println(counter);
+					counter = counter + 1;
+					
 					//add new assignment to list
 					assignments.add(new Assignment(substitute.getName(),absence.getTeacher().getName(),absence.getTime(),absence.getDay(),absence.getLocation()));
-					
+					System.out.println(new Assignment(substitute.getName(),absence.getTeacher().getName(),absence.getTime(),absence.getDay(),absence.getLocation()));
 					absences.remove(randindexA);//remove absence from absence list
-					break cyclesubs;//exit for loop now that assignment has been made
+					
+					break cyclesubs;//return to cycle absences now the assignment has been made
 				}
 				
-				substitutes.remove(randindexS);//remove substitute from substitute list
+				subindex.remove(randindexS);//remove index representing substitute from list if they can't fill absence
 			}
 		}
 	}
