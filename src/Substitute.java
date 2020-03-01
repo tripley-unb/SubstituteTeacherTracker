@@ -33,5 +33,7 @@ public class Substitute {
 		bookings.add(booking);
 	}
 	
-	
+	public String toString() {
+		return "sub: " + getName();
+	}
 }

@@ -6,6 +6,10 @@ public class Assignment {
 	private String date;
 	private String location;
 	
+	public Assignment() {
+		this("none", "none", "none", "none", "none");
+	}
+	
 	public Assignment(String substitute, String teacher, String time, String date, String location) {
 		this.substitute = substitute;
 		this.teacher = teacher;
@@ -13,6 +17,7 @@ public class Assignment {
 		this.date = date;
 		this.location = location;
 	}
+
 	public String getSubName() {
 		return substitute;
 	}
@@ -31,5 +36,9 @@ public class Assignment {
 	
 	public String getLocation() {
 		return location;
+	}
+	
+	public String toString() {
+		return "substitute: " + getSubName() + " teacher: " + getTeacherName() + " day: " + getDate() + " time: " + getTime() + " location: " + getLocation() + "\n";
 	}
 }

@@ -31,4 +31,8 @@ public class Absence {
 	public Teacher getTeacher() {
 		return teacher;
 	}
+	
+	public String toString() {
+		return "teacher: " + getTeacher().getName() + " day: " + getDay() + " time: " + getTime() + " location: " + getLocation();
+	}
 }
