@@ -40,8 +40,6 @@ public class AssignBookings {
 			for (int i=0; i<substitutes.size();i++) {//re-initialize subindex list
 				subindex.add(i);
 			}
-			System.out.println("abs up: "+absence);
-			System.out.println(subindex.size());
 			
 			cyclesubs: while (subindex.size()!=0) {//cycle through substitutes at random
 				
@@ -66,18 +64,19 @@ public class AssignBookings {
 				if (conflict == false) {//if there aren't any conflicts
 					substitute.addBooking(absence);//add booking to subs list
 					
-					System.out.println(counter);
-					counter = counter + 1;
-					
 					//add new assignment to list
 					assignments.add(new Assignment(substitute.getName(),absence.getTeacher().getName(),absence.getTime(),absence.getDay(),absence.getLocation()));
-					System.out.println(new Assignment(substitute.getName(),absence.getTeacher().getName(),absence.getTime(),absence.getDay(),absence.getLocation()));
 					absences.remove(randindexA);//remove absence from absence list
 					
 					break cyclesubs;//return to cycle absences now the assignment has been made
 				}
 				
 				subindex.remove(randindexS);//remove index representing substitute from list if they can't fill absence
+			}
+			if (subindex.size() == 0) {//no subs to fill absence
+				System.out.println("no subs to fill absence: "+absence);
+				assignments.add(new Assignment("none available ",absence.getTeacher().getName(),absence.getTime(),absence.getDay(),absence.getLocation()));
+				absences.remove(randindexA);//remove absence from absence list
 			}
 		}
 	}
