@@ -126,6 +126,16 @@ public class AssignBookings {
 	
 	private int selectSubstitute(Absence absence) {
 		int indexS;
+		
+		//if sub has black listed absence remove from options
+		for(int i=0;i<subindex.size();i++) {//cycle subs
+			for(int j=0;j<substitutes.get(subindex.get(i)).getBlacklist().size();j++) {//cycle blacklist
+				if(absence.getLocation().equals(substitutes.get(subindex.get(i)).getBlacklist().get(j))) {//if locations match
+					subindex.remove(i);//remove sub from list
+				}
+			}
+		}
+		
 		if(locationOnCalls(absence) != -1) {//if a sub has an on call for the location
 			indexS = locationOnCalls(absence);
 		}
@@ -139,18 +149,6 @@ public class AssignBookings {
 		}
 		return indexS;
 	}
-	private int isBlacklisted(Absence a, Substitute s){
-	    ArrayList<String> blacklist = new ArrayList<String>();
-	    s.getBlacklist();
-	   
-	    for(String string : blacklist){
-	        if(a.getLocation().equals(string)){
-	            return 0;
-	        }
-	    }
-	    return 1;
-	}
-
 
 	public void assign() {
 		
@@ -161,7 +159,6 @@ public class AssignBookings {
 		Absence absence = new Absence();
 		
 		boolean conflict = false;
-		boolean teachables = false;
 
 		while (absindex.size()!=0) {//cycle through absences at random
 			
@@ -180,7 +177,7 @@ public class AssignBookings {
 			//re-initialize subindex list
 			subIndexList();
 			
-			cyclesubs: while (subindex.size()!=0) {//cycle through substitutes at random
+			cyclesubs: while (subindex.size()!=0) {//cycle through substitutes
 				
 				conflict = false;//reset conflict flag
 				
