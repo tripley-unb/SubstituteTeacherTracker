@@ -41,21 +41,51 @@ public class InputCSV {
 	
 	public static SubList ReadSubCSV(String csvName) throws IOException {
 		SubList sublist = new SubList();
+		SubList onCallList = new SubList();
+		try {
+			Reader reader = Files.newBufferedReader(Paths.get(csvPath + "onCalls"));
+			CSVParser csvParser = new CSVParser(reader, CSVFormat.EXCEL.withFirstRecordAsHeader());
+	
+			for (CSVRecord csvRecord : csvParser) {
+				String name = csvRecord.get("substitute");
+				String location = csvRecord.get("location");
+				
+				Substitute sub = new Substitute(name);
+				sub.addOnCall(location);
+				onCallList.addSub(sub);
+			}
+
+			
+			
+		} catch (IOException io) {
+			System.out.println("Error reading CSV file");
+			io.printStackTrace();
+		}
 		
 		try (
 	            Reader reader = Files.newBufferedReader(Paths.get(csvPath + csvName));
 	            CSVParser csvParser = new CSVParser(reader, CSVFormat.EXCEL.withFirstRecordAsHeader());
 	    ) {
 			for (CSVRecord csvRecord : csvParser) {
+				int i = 0;
 				String name = csvRecord.get("name");
 				String teachables = csvRecord.get("teachables");
 				String blacklist = csvRecord.get("blacklist");
 				
-				Substitute substitute = new Substitute(name, parseSpaces(teachables), parseSpaces(blacklist));
+				Substitute substitute;
+				while(!name.equals(onCallList.getList().get(i).getName())) {
+					i++;
+				}
+
+				if(name.equals(onCallList.getList().get(i).getName())) {
+					ArrayList<String> onCalls = onCallList.getList().get(i).getOnCalls();
+					substitute = new Substitute(name, parseSpaces(teachables), parseSpaces(blacklist), onCalls);
+				}
+				else
+					substitute = new Substitute(name, parseSpaces(teachables), parseSpaces(blacklist));
 				sublist.addSub(substitute);
 			}
 		}
-		
 		return sublist;
 	}
 	
