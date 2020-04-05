@@ -7,6 +7,7 @@ public class AssignBookings {
 	private ArrayList<Substitute> substitutes;
 	private ArrayList<Integer> absindex;
 	private ArrayList<Integer> subindex;
+	private boolean teachables;
 	
 	private Random random;
 
@@ -29,6 +30,9 @@ public class AssignBookings {
 	}
 	
 	private ArrayList<Integer> subIndexList(){
+		if (teachables == true) {
+			
+		}
 		for (int i=0; i<substitutes.size();i++) {				
 			subindex.add(i);
 		}
@@ -55,6 +59,23 @@ public class AssignBookings {
 			assignments.add(new Assignment("NONE AVAILABLE",absence.getTeacher().getName(),absence.getTime(),absence.getDay(),absence.getLocation()));
 			absindex.remove(randindexA);//remove absence from absence list
 		}
+	}
+	
+	private ArrayList<Integer> tallyTeachables(boolean teachables, Absence absence, Substitute substitute) {
+		ArrayList<Integer> teachables_matchtally = new ArrayList<Integer>();
+		if (teachables == true) {			
+			for(int j=0; j<absence.getTeachables().size();j++) {//cycle through absence's teachables
+				for(int k=0; k<substitute.getTeachables().size(); k++) {//cycle through substitute's teachables
+					
+					if(absence.getTeachables().get(j).equals(substitute.getTeachables().get(k))) {
+						
+					}
+				}
+
+			}
+			
+		}
+		return teachables_matchtally;
 	}
 	
 	
@@ -102,7 +123,9 @@ public class AssignBookings {
 				conflict = checkConflict(substitute, absence);
 				
 				if (conflict == false) {//if there aren't any conflicts
+					
 					substitute.addBooking(absence);//add booking to subs list
+					
 					//add new assignment to list
 					assignments.add(new Assignment(substitute.getName(),absence.getTeacher().getName(),absence.getTime(),absence.getDay(),absence.getLocation()));
 					absindex.remove(randindexA);//remove absence from absence list
