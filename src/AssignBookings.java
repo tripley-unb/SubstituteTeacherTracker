@@ -74,6 +74,7 @@ public class AssignBookings {
 			}
 			
 		}
+//		System.out.println(absence.getTeachables()+" "+absence.getTeacher().getName()+" "+substitute.getName()+substitute.getTeachables()+" match:"+match);
 		return match;
 	}
 	
@@ -157,6 +158,7 @@ public class AssignBookings {
 					//absence has teachables and they match one of the subs
 					//find bestmatch
 					indexS = teachablesBestMatch(teachables, absence);
+//					System.out.println(absindex.get(indexA)+":"+subindex.get(indexS));
 				}
 				else {
 					//choose one of the substitutes at random
