@@ -17,26 +17,27 @@ public class AssignBookings {
 		
 		absindex = new ArrayList<Integer>();//initialize list that correlates to absence list index
 		for (int i=0; i<absences.size();i++) {
-			absindex.add(i);
+			absindex.add(i,i);//add element i to index i
 		}
 		
 		subindex = new ArrayList<Integer>();//initialize list that correlates to sub list index
 		for (int i=0; i<substitutes.size();i++) {
-			subindex.add(i);
+			subindex.add(i,i);
 		}
 		
 		assignments = new ArrayList<Assignment>();
 		random = new Random();
 	}
 	
-	private ArrayList<Integer> subIndexList(){
-		if (teachables == true) {
-			
+	private void subIndexList(){
+		for (int i=0; i<substitutes.size();i++) {
+			if(subindex.size()>i) {
+				subindex.set(i,i);
+			}
+			else {
+				subindex.add(i,i);
+			}
 		}
-		for (int i=0; i<substitutes.size();i++) {				
-			subindex.add(i);
-		}
-		return subindex;
 	}
 	
 	private boolean checkConflict(Substitute substitute, Absence absence) {
@@ -74,7 +75,6 @@ public class AssignBookings {
 			}
 			
 		}
-//		System.out.println(absence.getTeachables()+" "+absence.getTeacher().getName()+" "+substitute.getName()+substitute.getTeachables()+" match:"+match);
 		return match;
 	}
 	
@@ -95,6 +95,50 @@ public class AssignBookings {
 		return bestmatch;
 	}
 	
+	private int locationOnCalls(Absence absence) {
+		int suboncall = -1;
+		for(int i=0;i<subindex.size();i++) {//cycle through shrinking list of substitute
+			for(int k=0;k<substitutes.get(subindex.get(i)).getOnCalls().size();k++) {//cycle through on calls of substitute
+				if(absence.getLocation().equals(substitutes.get(subindex.get(i)).getOnCalls().get(k))) {//if on call matches location
+					suboncall = i;	
+				}
+			}
+			
+		}	
+		return suboncall;
+	}
+	
+	private int selectAbsence() {
+		int indexA = -1;
+		int i = 0;
+		while(indexA == -1 && i<absindex.size()) {
+			if(absences.get(absindex.get(i)).getTeachables().size()>0) {//if absence has teachables
+				indexA = i;
+			}
+			i++;
+		}
+		if(indexA == -1){//no absences with teachables
+			//choose one of the absences at random
+			indexA = random.nextInt(absindex.size());//choose random index for index list
+		}
+		return indexA;
+	}
+	
+	private int selectSubstitute(Absence absence) {
+		int indexS;
+		if(locationOnCalls(absence) != -1) {//if a sub has an on call for the location
+			indexS = locationOnCalls(absence);
+		}
+		else if(teachables == true && teachablesBestMatch(teachables, absence) != -1) {
+			//absence has teachables and they match one of the subs
+			indexS = teachablesBestMatch(teachables, absence);//find bestmatch
+		}
+		else {
+			//choose one of the substitutes at random
+			indexS = random.nextInt(subindex.size());//choose random index for index list
+		}
+		return indexS;
+	}
 	private int isBlacklisted(Absence a, Substitute s){
 	    ArrayList<String> blacklist = new ArrayList<String>();
 	    s.getBlacklist();
@@ -115,31 +159,17 @@ public class AssignBookings {
 		
 		Substitute substitute = new Substitute();
 		Absence absence = new Absence();
-		ArrayList<Integer> subs_teachables_match = new ArrayList<Integer>();
 		
 		boolean conflict = false;
 		boolean teachables = false;
-//		boolean regular = false;
-//		...
 
 		while (absindex.size()!=0) {//cycle through absences at random
 			
 			//reinitialize variables
 			teachables = false;
-			indexA = -1;
-			int i = 0;
-			
+
 			//select absence
-			while(indexA == -1 && i<absindex.size()) {
-				if(absences.get(absindex.get(i)).getTeachables().size()>0) {//if absence has teachables
-					indexA = i;
-				}
-				i++;
-			}
-			if(indexA == -1){//no absences with teachables
-				//choose one of the absences at random
-				indexA = random.nextInt(absindex.size());//choose random index for index list
-			}
+			indexA = selectAbsence();
 			absence = absences.get(absindex.get(indexA));
 			
 			//check for special conditions
@@ -154,16 +184,8 @@ public class AssignBookings {
 				
 				conflict = false;//reset conflict flag
 				
-				if(teachables == true && teachablesBestMatch(teachables, absence) != -1) {
-					//absence has teachables and they match one of the subs
-					//find bestmatch
-					indexS = teachablesBestMatch(teachables, absence);
-//					System.out.println(absindex.get(indexA)+":"+subindex.get(indexS));
-				}
-				else {
-					//choose one of the substitutes at random
-					indexS = random.nextInt(subindex.size());//choose random index for index list
-				}
+				//select substitute
+				indexS = selectSubstitute(absence);
 				substitute = substitutes.get(subindex.get(indexS));
 				
 				conflict = checkConflict(substitute, absence);
