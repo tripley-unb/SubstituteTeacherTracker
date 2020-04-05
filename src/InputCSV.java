@@ -43,7 +43,7 @@ public class InputCSV {
 		SubList sublist = new SubList();
 		SubList onCallList = new SubList();
 		try {
-			Reader reader = Files.newBufferedReader(Paths.get(csvPath + "onCalls"));
+			Reader reader = Files.newBufferedReader(Paths.get(csvPath + "onCalls.csv"));
 			CSVParser csvParser = new CSVParser(reader, CSVFormat.EXCEL.withFirstRecordAsHeader());
 	
 			for (CSVRecord csvRecord : csvParser) {
@@ -67,17 +67,23 @@ public class InputCSV {
 	            CSVParser csvParser = new CSVParser(reader, CSVFormat.EXCEL.withFirstRecordAsHeader());
 	    ) {
 			for (CSVRecord csvRecord : csvParser) {
+				boolean onCall = false;
 				int i = 0;
 				String name = csvRecord.get("name");
 				String teachables = csvRecord.get("teachables");
 				String blacklist = csvRecord.get("blacklist");
 				
 				Substitute substitute;
-				while(!name.equals(onCallList.getList().get(i).getName())) {
-					i++;
+				while(i < onCallList.getList().size()) {
+					if(!(name.equals(onCallList.getList().get(i).getName())))
+						i++;
+					else {
+						onCall = true;
+						break;
+					}
 				}
 
-				if(name.equals(onCallList.getList().get(i).getName())) {
+				if(onCall) {
 					ArrayList<String> onCalls = onCallList.getList().get(i).getOnCalls();
 					substitute = new Substitute(name, parseSpaces(teachables), parseSpaces(blacklist), onCalls);
 				}
