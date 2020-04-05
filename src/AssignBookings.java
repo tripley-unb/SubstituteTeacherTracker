@@ -28,7 +28,36 @@ public class AssignBookings {
 		random = new Random();
 	}
 	
-	private 
+	private ArrayList<Integer> subIndexList(){
+		for (int i=0; i<substitutes.size();i++) {				
+			subindex.add(i);
+		}
+		return subindex;
+	}
+	
+	private boolean checkConflict(Substitute substitute, Absence absence) {
+		Absence booking = new Absence();
+		boolean conflict = false;
+		if (substitute.getBooking().size()!=0) {//if the sub has bookings
+			for (int j=0; j<substitute.getBooking().size(); j++){//cycle through sub's bookings
+				booking = substitute.getBooking().get(j);
+				if (booking.getDay().equals(absence.getDay()) && (booking.getTime().equals(absence.getTime()))) {//if sub is booked during absence
+					conflict = true;
+				}
+			}
+		}
+		return conflict;
+	}
+	
+	private void noSubforAbsence(Absence absence, int randindexA) {
+		if (subindex.size() == 0) {//no subs to fill absence
+			System.out.println("WARNING! no subs to fill absence: "+absence);
+			assignments.add(new Assignment("NONE AVAILABLE",absence.getTeacher().getName(),absence.getTime(),absence.getDay(),absence.getLocation()));
+			absindex.remove(randindexA);//remove absence from absence list
+		}
+	}
+	
+	
 	
 	public void assign() {
 		
@@ -60,50 +89,17 @@ public class AssignBookings {
 			}
 			
 			//re-initialize subindex list
-			for (int i=0; i<substitutes.size();i++) {
-				
-				if(teachables == true) {
-					if(substitutes.get(i).getTeachables().size()>0) {//add if sub has teachables
-						subindex.add(i);
-					}
-				}
-				
-				else {//no conditions, add all subs to sub index
-					subindex.add(i);
-				}
-				
-			}
+			subIndexList();
 			
 			cyclesubs: while (subindex.size()!=0) {//cycle through substitutes at random
 				
 				conflict = false;//reset conflict flag
 				
-				//choose on of the substitutes at random
+				//choose one of the substitutes at random
 				randindexS = random.nextInt(subindex.size());//choose random index for index list
 				substitute = substitutes.get(subindex.get(randindexS));	
 				
-				if (teachables == true) {
-					
-					for(int j=0; j<absence.getTeachables().size();j++) {//cycle through absence's teachables
-						for(int k=0; k<substitute.getTeachables().size(); k++) {//cycle through substitute's teachables
-							
-							if(absence.getTeachables().get(j).equals(substitute.getTeachables().get(k))) {
-								
-							}
-						}
-
-					}
-					
-				}
-				
-				if (substitute.getBooking().size()!=0) {//if the sub has bookings
-					for (int j=0; j<substitute.getBooking().size(); j++){//cycle through sub's bookings
-						booking = substitute.getBooking().get(j);
-						if (booking.getDay().equals(absence.getDay()) && (booking.getTime().equals(absence.getTime()))) {//if sub is booked during absence
-							conflict = true;
-						}
-					}
-				}
+				conflict = checkConflict(substitute, absence);
 				
 				if (conflict == false) {//if there aren't any conflicts
 					substitute.addBooking(absence);//add booking to subs list
@@ -116,11 +112,7 @@ public class AssignBookings {
 				subindex.remove(randindexS);//remove index representing substitute from list if they can't fill absence
 			}
 			
-			if (subindex.size() == 0) {//no subs to fill absence
-				System.out.println("WARNING! no subs to fill absence: "+absence);
-				assignments.add(new Assignment("NONE AVAILABLE",absence.getTeacher().getName(),absence.getTime(),absence.getDay(),absence.getLocation()));
-				absindex.remove(randindexA);//remove absence from absence list
-			}
+			noSubforAbsence(absence, randindexA);
 		}
 	}
 	
