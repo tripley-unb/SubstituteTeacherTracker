@@ -107,7 +107,6 @@ public class AssignBookings {
 	}
 
 
-	
 	public void assign() {
 		
 		int indexS;
@@ -126,9 +125,20 @@ public class AssignBookings {
 			
 			//reinitialize variables
 			teachables = false;
-						
-			//choose one of the absences at random
-			indexA = random.nextInt(absindex.size());
+			indexA = -1;
+			int i = 0;
+			
+			//select absence
+			while(indexA == -1 && i<absindex.size()) {
+				if(absences.get(absindex.get(i)).getTeachables().size()>0) {//if absence has teachables
+					indexA = i;
+				}
+				i++;
+			}
+			if(indexA == -1){//no absences with teachables
+				//choose one of the absences at random
+				indexA = random.nextInt(absindex.size());//choose random index for index list
+			}
 			absence = absences.get(absindex.get(indexA));
 			
 			//check for special conditions
@@ -143,16 +153,16 @@ public class AssignBookings {
 				
 				conflict = false;//reset conflict flag
 				
-				if(teachables == true) {//case absence has teachables
+				if(teachables == true && teachablesBestMatch(teachables, absence) != -1) {
+					//absence has teachables and they match one of the subs
 					//find bestmatch
 					indexS = teachablesBestMatch(teachables, absence);
-					substitute = substitutes.get(subindex.get(indexS));
 				}
 				else {
 					//choose one of the substitutes at random
 					indexS = random.nextInt(subindex.size());//choose random index for index list
-					substitute = substitutes.get(subindex.get(indexS));
 				}
+				substitute = substitutes.get(subindex.get(indexS));
 				
 				conflict = checkConflict(substitute, absence);
 				
