@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>8</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>744</x>
+      <y>440</y>
+      <w>208</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>Teacher
+--
+-name: String
+-teachables: ArrayList&lt;String&gt;
+--
++getName(): String
++getTeachables(): ArrayList&lt;String&gt;
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>672</x>
+      <y>24</y>
+      <w>368</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>Substitute
+--
+-name: String
+-teachables: ArrayList&lt;String&gt;
+-blacklist: ArrayList&lt;String&gt;
+-bookings: ArrayList&lt;Absence&gt;
+--
+&lt;&lt;Constructor&gt;&gt;+Substitute(String, ArrayList&lt;String&gt;, ArrayList&lt;String&gt;)
+&lt;&lt;Constructor&gt;&gt;+Substitute()
++getName(): String
++getTeachables: ArrayList&lt;String&gt;
++getBlacklist(): ArrayList&lt;String&gt;
++getBooking(): ArrayList&lt;Absence&gt;
++addBooking(String): void
++toString: String
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>176</x>
+      <y>40</y>
+      <w>216</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>Driver
+--
++ main(String[ ] args): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>776</x>
+      <y>656</y>
+      <w>176</w>
+      <h>208</h>
+    </coordinates>
+    <panel_attributes>Assignment
+--
+-substitute: String
+-teacher: String
+-time: String
+-date: String
+-location: String
+--
+&lt;&lt;Constructor&gt;&gt;+Assignment(String, String, String, String, String)
+&lt;&lt;Constructor&gt;&gt;+Assignment()
++getSubName(): String
++getTeachName(): String
++getTime(): String
++getDate(): String
++getLocation(): String
++toString(): String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>264</x>
+      <y>416</y>
+      <w>400</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>InputCSV
+--
+_-csvPath: String_
+--
+_+ReadAbsenceCSV(String): AbsenceList &lt;&lt;throws&gt;&gt; IOExpception_
+_+ReadSubCSV(String): SubList &lt;&lt;throws&gt;&gt; IOExpception_
+_-parseSpaces(String): ArrayList&lt;String&gt;_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>256</x>
+      <y>544</y>
+      <w>448</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>AssignBookings
+--
+-assignments: ArrayList&lt;Assignment&gt;
+-absences: ArrayList&lt;Absence&gt;
+-substitutes: ArrayList&lt;Subsitute&gt;
+-absindex: ArrayList&lt;Integer&gt;
+-subindex: ArrayList&lt;Integer&gt;
+-random: Random
+--
+&lt;&lt;Constructor&gt;&gt;+AssignBookings(ArrayList&lt;Absence&gt;, ArrayList&lt;Substitute&gt;)
++assign(): ArrayList&lt;Assignment&gt;
++getAssignment: ArrayList&lt;Assignment&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>256</x>
+      <y>720</y>
+      <w>368</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>OutputCSV
+--
+_-assignments: String_
+--
+_+creatCSV(ArrayList&lt;Assignment&gt;): CSVfile &lt;&lt;throws&gt;&gt; IOException_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>264</x>
+      <y>184</y>
+      <w>232</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>SubList
+--
+-subs: ArrayList&lt;Substitute&gt;
+--
++addSub(Substitute): void
++getList(): ArrayList&lt;Substitute&gt;
++toString: String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>264</x>
+      <y>288</y>
+      <w>224</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>AbsenceList
+--
+-absences: ArrayList&lt;Absence&gt;
+--
++addAbbsence(Absence): void
++getList(): ArrayList&lt;Absence&gt;
++toString(): String
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>200</x>
+      <y>72</y>
+      <w>72</w>
+      <h>672</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>70.0;820.0;10.0;820.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>200</x>
+      <y>200</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>80.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>200</x>
+      <y>288</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>80.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>200</x>
+      <y>416</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>80.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>200</x>
+      <y>544</y>
+      <w>72</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>70.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>488</x>
+      <y>24</y>
+      <w>200</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>230.0;10.0;40.0;10.0;40.0;230.0;10.0;230.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>480</x>
+      <y>288</y>
+      <w>304</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>360.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>656</x>
+      <y>440</y>
+      <w>104</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>110.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>672</x>
+      <y>328</y>
+      <w>112</w>
+      <h>136</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>120.0;10.0;10.0;10.0;10.0;150.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>696</x>
+      <y>24</y>
+      <w>424</w>
+      <h>544</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>430.0;10.0;510.0;10.0;510.0;660.0;10.0;660.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>616</x>
+      <y>728</y>
+      <w>176</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>200.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>920</x>
+      <y>248</y>
+      <w>200</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;230.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>768</x>
+      <y>248</y>
+      <w>160</w>
+      <h>176</h>
+    </coordinates>
+    <panel_attributes>Absence
+--
+-day: String
+-time: String
+-location: String
+-teacher: Teacher
+--
+&lt;&lt;Constructor&gt;&gt;+Absence(String, String, String, Teacher)
+&lt;&lt;Constructor&gt;&gt;+Absence()
++getDay(): String
++getTime(): String
++getLocation(): String
++getTeacher(): Teacher
++toString(): String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>832</x>
+      <y>416</y>
+      <w>24</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;30.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>576</x>
+      <y>72</y>
+      <w>112</w>
+      <h>360</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>120.0;10.0;10.0;10.0;10.0;430.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>792</x>
+      <y>544</y>
+      <w>24</w>
+      <h>128</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;140.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>

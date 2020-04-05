@@ -28,6 +28,8 @@ public class AssignBookings {
 		random = new Random();
 	}
 	
+	private 
+	
 	public void assign() {
 		
 		int randindexS;
@@ -36,16 +38,40 @@ public class AssignBookings {
 		Substitute substitute = new Substitute();
 		Absence absence = new Absence();
 		Absence booking = new Absence();
+		ArrayList<Integer> teachable_matchtally = new ArrayList<Integer>();
+		
 		boolean conflict = false;
+		boolean teachables = false;
+//		boolean regular = false;
+//		...
 
 		while (absindex.size()!=0) {//cycle through absences at random
-
+			
+			//reinitialize variables
+			teachables = false;
+						
 			//choose one of the absences at random
 			randindexA = random.nextInt(absindex.size());
 			absence = absences.get(absindex.get(randindexA));
 			
-			for (int i=0; i<substitutes.size();i++) {//re-initialize subindex list
-				subindex.add(i);
+			//check for special conditions
+			if(absence.getTeachables().size()>0) {
+				teachables = true;//absence has teachables
+			}
+			
+			//re-initialize subindex list
+			for (int i=0; i<substitutes.size();i++) {
+				
+				if(teachables == true) {
+					if(substitutes.get(i).getTeachables().size()>0) {//add if sub has teachables
+						subindex.add(i);
+					}
+				}
+				
+				else {//no conditions, add all subs to sub index
+					subindex.add(i);
+				}
+				
 			}
 			
 			cyclesubs: while (subindex.size()!=0) {//cycle through substitutes at random
@@ -54,7 +80,21 @@ public class AssignBookings {
 				
 				//choose on of the substitutes at random
 				randindexS = random.nextInt(subindex.size());//choose random index for index list
-				substitute = substitutes.get(subindex.get(randindexS));				
+				substitute = substitutes.get(subindex.get(randindexS));	
+				
+				if (teachables == true) {
+					
+					for(int j=0; j<absence.getTeachables().size();j++) {//cycle through absence's teachables
+						for(int k=0; k<substitute.getTeachables().size(); k++) {//cycle through substitute's teachables
+							
+							if(absence.getTeachables().get(j).equals(substitute.getTeachables().get(k))) {
+								
+							}
+						}
+
+					}
+					
+				}
 				
 				if (substitute.getBooking().size()!=0) {//if the sub has bookings
 					for (int j=0; j<substitute.getBooking().size(); j++){//cycle through sub's bookings
