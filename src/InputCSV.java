@@ -27,7 +27,7 @@ public class InputCSV {
 					String teachables = csvRecord.get("teachables");
 					
 					Teacher teacher = new Teacher(teacherName, InputCSV.parseSpaces(teachables));
-					Absence absence = new Absence(date, period, location, teacher);
+					Absence absence = new Absence(date, period, location, teacher, InputCSV.parseSpaces(teachables));
 					absenceList.addAbsence(absence);
 				}
 				
