@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>8</zoom_level>
+  <zoom_level>6</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>744</x>
-      <y>440</y>
-      <w>208</w>
-      <h>88</h>
+      <x>426</x>
+      <y>336</y>
+      <w>156</w>
+      <h>66</h>
     </coordinates>
     <panel_attributes>Teacher
 --
@@ -23,10 +23,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>672</x>
-      <y>24</y>
-      <w>368</w>
-      <h>200</h>
+      <x>372</x>
+      <y>0</y>
+      <w>276</w>
+      <h>174</h>
     </coordinates>
     <panel_attributes>Substitute
 --
@@ -34,9 +34,13 @@
 -teachables: ArrayList&lt;String&gt;
 -blacklist: ArrayList&lt;String&gt;
 -bookings: ArrayList&lt;Absence&gt;
+-onCalls: ArrayList&lt;String&gt;
 --
 &lt;&lt;Constructor&gt;&gt;+Substitute(String, ArrayList&lt;String&gt;, ArrayList&lt;String&gt;)
 &lt;&lt;Constructor&gt;&gt;+Substitute()
+&lt;&lt;Constructor&gt;&gt;+Substitute(String, ArrayList&lt;String&gt;, ArrayList&lt;String&gt;, ArrayList&lt;String)
++addOnCall(String): void
++getOnCalls(): ArrayList&lt;String&gt;
 +getName(): String
 +getTeachables: ArrayList&lt;String&gt;
 +getBlacklist(): ArrayList&lt;String&gt;
@@ -49,10 +53,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>176</x>
-      <y>40</y>
-      <w>216</w>
-      <h>40</h>
+      <x>0</x>
+      <y>36</y>
+      <w>162</w>
+      <h>30</h>
     </coordinates>
     <panel_attributes>Driver
 --
@@ -62,10 +66,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>776</x>
-      <y>656</y>
-      <w>176</w>
-      <h>208</h>
+      <x>420</x>
+      <y>498</y>
+      <w>270</w>
+      <h>156</h>
     </coordinates>
     <panel_attributes>Assignment
 --
@@ -88,10 +92,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>264</x>
-      <y>416</y>
-      <w>400</w>
-      <h>96</h>
+      <x>66</x>
+      <y>318</y>
+      <w>300</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>InputCSV
 --
@@ -105,10 +109,10 @@ _-parseSpaces(String): ArrayList&lt;String&gt;_</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>256</x>
-      <y>544</y>
-      <w>448</w>
-      <h>160</h>
+      <x>60</x>
+      <y>396</y>
+      <w>336</w>
+      <h>168</h>
     </coordinates>
     <panel_attributes>AssignBookings
 --
@@ -120,6 +124,12 @@ _-parseSpaces(String): ArrayList&lt;String&gt;_</panel_attributes>
 -random: Random
 --
 &lt;&lt;Constructor&gt;&gt;+AssignBookings(ArrayList&lt;Absence&gt;, ArrayList&lt;Substitute&gt;)
+-subIndexList(): ArrayList&lt;Integer&gt;
+-checkConflict(): boolean
+-noSubforAbsence(): void
+-tallyTeachables(boolean, Absence, Substitute): int
+-teachablesBestMatch(boolean, Absence): int
+-isBlacklisted(Absence, Substitute): int
 +assign(): ArrayList&lt;Assignment&gt;
 +getAssignment: ArrayList&lt;Assignment&gt;</panel_attributes>
     <additional_attributes/>
@@ -127,10 +137,10 @@ _-parseSpaces(String): ArrayList&lt;String&gt;_</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>256</x>
-      <y>720</y>
-      <w>368</w>
-      <h>64</h>
+      <x>60</x>
+      <y>570</y>
+      <w>276</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>OutputCSV
 --
@@ -142,10 +152,10 @@ _+creatCSV(ArrayList&lt;Assignment&gt;): CSVfile &lt;&lt;throws&gt;&gt; IOExcept
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>264</x>
-      <y>184</y>
-      <w>232</w>
-      <h>88</h>
+      <x>66</x>
+      <y>144</y>
+      <w>174</w>
+      <h>66</h>
     </coordinates>
     <panel_attributes>SubList
 --
@@ -159,10 +169,10 @@ _+creatCSV(ArrayList&lt;Assignment&gt;): CSVfile &lt;&lt;throws&gt;&gt; IOExcept
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>264</x>
-      <y>288</y>
-      <w>224</w>
-      <h>96</h>
+      <x>66</x>
+      <y>222</y>
+      <w>168</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>AbsenceList
 --
@@ -177,32 +187,21 @@ _+creatCSV(ArrayList&lt;Assignment&gt;): CSVfile &lt;&lt;throws&gt;&gt; IOExcept
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>200</x>
-      <y>72</y>
-      <w>72</w>
-      <h>672</h>
+      <x>18</x>
+      <y>60</y>
+      <w>54</w>
+      <h>528</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>70.0;820.0;10.0;820.0;10.0;10.0</additional_attributes>
+    <additional_attributes>70.0;860.0;10.0;860.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>200</x>
-      <y>200</y>
-      <w>80</w>
-      <h>24</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>80.0;10.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>200</x>
-      <y>288</y>
-      <w>80</w>
-      <h>24</h>
+      <x>18</x>
+      <y>156</y>
+      <w>60</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>80.0;10.0;10.0;10.0</additional_attributes>
@@ -210,10 +209,10 @@ _+creatCSV(ArrayList&lt;Assignment&gt;): CSVfile &lt;&lt;throws&gt;&gt; IOExcept
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>200</x>
-      <y>416</y>
-      <w>80</w>
-      <h>24</h>
+      <x>18</x>
+      <y>222</y>
+      <w>60</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>80.0;10.0;10.0;10.0</additional_attributes>
@@ -221,10 +220,21 @@ _+creatCSV(ArrayList&lt;Assignment&gt;): CSVfile &lt;&lt;throws&gt;&gt; IOExcept
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>200</x>
-      <y>544</y>
-      <w>72</w>
-      <h>24</h>
+      <x>18</x>
+      <y>318</y>
+      <w>60</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>80.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>18</x>
+      <y>414</y>
+      <w>54</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>70.0;10.0;10.0;10.0</additional_attributes>
@@ -232,10 +242,10 @@ _+creatCSV(ArrayList&lt;Assignment&gt;): CSVfile &lt;&lt;throws&gt;&gt; IOExcept
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>488</x>
+      <x>234</x>
       <y>24</y>
-      <w>200</w>
-      <h>200</h>
+      <w>150</w>
+      <h>150</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>230.0;10.0;40.0;10.0;40.0;230.0;10.0;230.0</additional_attributes>
@@ -243,10 +253,10 @@ _+creatCSV(ArrayList&lt;Assignment&gt;): CSVfile &lt;&lt;throws&gt;&gt; IOExcept
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>480</x>
-      <y>288</y>
-      <w>304</w>
-      <h>24</h>
+      <x>228</x>
+      <y>222</y>
+      <w>228</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>360.0;10.0;10.0;10.0</additional_attributes>
@@ -254,10 +264,10 @@ _+creatCSV(ArrayList&lt;Assignment&gt;): CSVfile &lt;&lt;throws&gt;&gt; IOExcept
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>656</x>
-      <y>440</y>
-      <w>104</w>
-      <h>24</h>
+      <x>360</x>
+      <y>336</y>
+      <w>78</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>110.0;10.0;10.0;10.0</additional_attributes>
@@ -265,10 +275,10 @@ _+creatCSV(ArrayList&lt;Assignment&gt;): CSVfile &lt;&lt;throws&gt;&gt; IOExcept
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>672</x>
-      <y>328</y>
-      <w>112</w>
-      <h>136</h>
+      <x>372</x>
+      <y>252</y>
+      <w>84</w>
+      <h>102</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>120.0;10.0;10.0;10.0;10.0;150.0</additional_attributes>
@@ -276,10 +286,10 @@ _+creatCSV(ArrayList&lt;Assignment&gt;): CSVfile &lt;&lt;throws&gt;&gt; IOExcept
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>696</x>
+      <x>390</x>
       <y>24</y>
-      <w>424</w>
-      <h>544</h>
+      <w>318</w>
+      <h>408</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>430.0;10.0;510.0;10.0;510.0;660.0;10.0;660.0</additional_attributes>
@@ -287,32 +297,32 @@ _+creatCSV(ArrayList&lt;Assignment&gt;): CSVfile &lt;&lt;throws&gt;&gt; IOExcept
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>616</x>
-      <y>728</y>
-      <w>176</w>
-      <h>24</h>
+      <x>330</x>
+      <y>576</y>
+      <w>102</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>200.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>150.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>920</x>
-      <y>248</y>
-      <w>200</w>
-      <h>24</h>
+      <x>594</x>
+      <y>192</y>
+      <w>114</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;230.0;10.0</additional_attributes>
+    <additional_attributes>10.0;10.0;170.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>768</x>
-      <y>248</y>
-      <w>160</w>
-      <h>176</h>
+      <x>444</x>
+      <y>180</y>
+      <w>156</w>
+      <h>144</h>
     </coordinates>
     <panel_attributes>Absence
 --
@@ -320,6 +330,7 @@ _+creatCSV(ArrayList&lt;Assignment&gt;): CSVfile &lt;&lt;throws&gt;&gt; IOExcept
 -time: String
 -location: String
 -teacher: Teacher
+-teachables: ArrayList&lt;String&gt;
 --
 &lt;&lt;Constructor&gt;&gt;+Absence(String, String, String, Teacher)
 &lt;&lt;Constructor&gt;&gt;+Absence()
@@ -327,16 +338,17 @@ _+creatCSV(ArrayList&lt;Assignment&gt;): CSVfile &lt;&lt;throws&gt;&gt; IOExcept
 +getTime(): String
 +getLocation(): String
 +getTeacher(): Teacher
++getTeachables(): ArrayList&lt;String&gt;
 +toString(): String</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>832</x>
-      <y>416</y>
-      <w>24</w>
-      <h>40</h>
+      <x>492</x>
+      <y>318</y>
+      <w>18</w>
+      <h>30</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;30.0;10.0;10.0</additional_attributes>
@@ -344,10 +356,10 @@ _+creatCSV(ArrayList&lt;Assignment&gt;): CSVfile &lt;&lt;throws&gt;&gt; IOExcept
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>576</x>
-      <y>72</y>
-      <w>112</w>
-      <h>360</h>
+      <x>300</x>
+      <y>60</y>
+      <w>84</w>
+      <h>270</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>120.0;10.0;10.0;10.0;10.0;430.0</additional_attributes>
@@ -355,10 +367,10 @@ _+creatCSV(ArrayList&lt;Assignment&gt;): CSVfile &lt;&lt;throws&gt;&gt; IOExcept
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>792</x>
-      <y>544</y>
-      <w>24</w>
-      <h>128</h>
+      <x>462</x>
+      <y>414</y>
+      <w>18</w>
+      <h>96</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;140.0;10.0;10.0</additional_attributes>
