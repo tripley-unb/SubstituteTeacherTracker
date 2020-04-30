@@ -160,7 +160,7 @@ public class AssignBookings {
 		
 		boolean conflict = false;
 
-		while (absindex.size()!=0) {//cycle through absences at random
+		while (absindex.size()!=0) {//cycle through absences
 			
 			//reinitialize variables
 			teachables = false;
